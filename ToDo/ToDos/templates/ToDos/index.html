@@ -1,0 +1,26 @@
+{% include './parts/header.html' %}
+{% if user.is_authenticated %}
+        <p>Welcome, {{ user.username }}! <a href="{% url 'logout' %}">Logout</a></p>
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'ToDos:register' %}">Register</a></p>
+    {% endif %}
+    {% block content %}
+    {% endblock %}
+
+{% if items %}
+<ul>
+    {% for item in items %}
+    <li>
+        {{item.title}} - {{item.description}}
+        {% if item.completed %} (completed) {% endif %}
+        <a href="{% url 'ToDos:update' item.pk %}">Edit</a>
+        <a href="{% url 'ToDos:delete' item.pk %}" style="color: red" onclick="return confirm('Are you sure you want to delete this item??')">Delete To-Do</a>
+    </li>
+    {% endfor %}
+    <a href="{% url 'ToDos:add' %}">add item</a>
+</ul>
+{% else %}
+    <p>No to-do items yet. <a href="{% url 'ToDos:add' %}">Add a new item</a></p>
+{% endif %}
+
+

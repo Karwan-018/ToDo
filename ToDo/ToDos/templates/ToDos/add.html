@@ -1,0 +1,9 @@
+{% include './parts/header.html' %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit"> submit </button>
+</form>
+
+<buttton><a href="{% url 'ToDos:index' %}">Back</a></buttton>
